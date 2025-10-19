@@ -59,19 +59,28 @@ let appState = {
 };
 
 // Mock Testimonials (Only used for the Testimonials page)
+
 const testimonials = [
-    { id: 1, name: 'Ravi Kumar', service: 'Electrical Repair', rating: 5, text: 'PowerTech Solutions fixed our entire home wiring in just one day. Professional and affordable!', location: 'Mumbai', date: '2025-09-10' },
-    { id: 2, name: 'Priya Singh', service: 'Deep House Cleaning', rating: 4.5, text: 'Swachh Ghar team was thorough and left everything spotless. Will book again next month.', location: 'Bangalore', date: '2025-08-25' },
-    { id: 3, name: 'Amit Patel', service: 'Plumbing & Leaks', rating: 5, text: 'Quick response and leak fixed without any mess. Highly recommend Jal Kalyan.', location: 'Delhi', date: '2025-10-05' },
-    { id: 4, name: 'Neha Reddy', service: 'Home Salon (Haircut)', rating: 4.8, text: 'Glamour Gadi stylist came on time and gave a perfect haircut at home. So convenient!', location: 'Chennai', date: '2025-09-20' },
-    { id: 5, name: 'Suresh Menon', service: 'Pest Control', rating: 5, text: 'Keet Niyantran eliminated the termites completely. No more worries!', location: 'Pune', date: '2025-07-15' },
-    { id: 6, name: 'Lata Desai', service: 'Carpentry & Assembly', rating: 4.7, text: 'Lakdi Kaam assembled our new wardrobe perfectly. Skilled craftsmen.', location: 'Hyderabad', date: '2025-10-12' },
-    { id: 7, name: 'Vikram Joshi', service: 'Therapeutic Massage', rating: 5, text: 'Aaram Body Spa therapist was amazing. Felt relaxed after the session.', location: 'Kolkata', date: '2025-08-30' },
-    { id: 8, name: 'Meera Nair', service: 'Counselling & Therapy', rating: 5, text: 'Shanti Mind Services helped me manage stress effectively. Grateful!', location: 'Ahmedabad', date: '2025-09-05' },
-    { id: 9, name: 'Rajesh Gupta', service: 'AC Repair & Service', rating: 4.9, text: 'CoolBreeze fixed our AC in no time during the heatwave. Great service!', location: 'Jaipur', date: '2025-06-20' },
-    { id: 10, name: 'Sunita Bose', service: 'Painting Services', rating: 4.6, text: 'ColorCraft transformed our living room with beautiful colors. Eco-friendly too!', location: 'Lucknow', date: '2025-10-01' },
-    { id: 11, name: 'Karan Malhotra', service: 'Appliance Repair', rating: 5, text: 'FixIt repaired our fridge efficiently. Back to normal in hours.', location: 'Indore', date: '2025-07-28' },
-    { id: 12, name: 'Anita Sharma', service: 'Home Salon (Waxing)', rating: 4.8, text: 'Comfortable and professional waxing service at home. No salon hassle!', location: 'Coimbatore', date: '2025-09-15' },
+    { id: 1, name: 'Ravi Kumar', service: 'Electrical Repair', rating: 5, text: 'My flat rewired with incredible speed! The team was polite, quick, and prices are good, reliable. Highly recommend!', location: 'Rohini, Delhi', date: '2025-09-10' },
+    { id: 2, name: 'Priya Singh', service: 'Deep House Cleaning', rating: 4.5, text: 'House cleaning services make my apartment like new! Their attention to every corner was amazing, and I’m already planning my next booking.', location: 'Rohini, Delhi', date: '2025-08-25' },
+    { id: 3, name: 'Amit Patel', service: 'Plumbing & Leaks', rating: 5, text: 'A stubborn leak solved in my home in no time. No mess, no fuss—just pure professionalism.' , location: 'Shalimar Bagh, Delhi', date: '2025-10-05' },
+    { id: 4, name: 'Neha Reddy', service: 'Home Salon (Haircut)', rating: 4.8, text: 'Nice haircut.', location: 'Sarita Vihar, Delhi', date: '2025-09-20' },
+    { id: 5, name: 'Suresh Menon', service: 'Pest Control', rating: 5, text: 'Amazing pest control service. Their thorough work gave me peace of mind. Nice work', location: 'Rohini, Delhi', date: '2025-07-15' },
+    { id: 6, name: 'Lata Desai', service: 'Carpentry & Assembly', rating: 4.7, text: 'They assembled my new wardrobe perfectly. Skilled, friendly, and they cleaned up after. Amazing job!', location: 'Uttam Nagar, Delhi', date: '2025-10-12' },
+    { id: 7, name: 'Vikram Joshi', service: 'Therapeutic Massage', rating: 5, text: 'My stress vanished after one session. Can’t wait for the next one.', location: 'Dwarka, Delhi', date: '2025-08-30' },
+    { id: 8, name: 'Meera Nair', service: 'Counselling & Therapy', rating: 5, text: 'therapy helped me navigate tough times. Their empathetic approach made all the difference. Truly grateful!', location: 'South Extension, Delhi', date: '2025-09-05' },
+    { id: 9, name: 'Rajesh Gupta', service: 'AC Repair & Service', rating: 4.9, text: 'Fixed my AC in hours with top-notch professionalism. Highly recommend!', location: 'Rohini, Delhi', date: '2025-06-20' },
+    { id: 10, name: 'Sunita Bose', service: 'Painting Services', rating: 4.6, text: 'Eco-friendly paints, and the walls look stunning, and the team was so tidy!', location: 'Moti Bagh, Delhi', date: '2025-10-01' },
+    { id: 11, name: 'Karan Malhotra', service: 'Appliance Repair', rating: 5, text: 'Super efficient fridge repairing and reliable—my kitchen’s back in action!', location: 'Azadpur, Delhi', date: '2025-07-28' },
+    { id: 12, name: 'Anita Sharma', service: 'Home Salon (Waxing)', rating: 4.8, text: 'Got a waxing session my home, and it was so smooth and stress-free! Professional service, no salon chaos. Loved it!', location: 'Rohini, Delhi', date: '2025-09-15' },
+    { id: 13, name: 'Deepak Yadav', service: 'Home Renovation', rating: 4.9, text: 'Their creativity and speed were impressive, beautifully renovated. Highly recommend!', location: 'Chandni Chowk, Delhi', date: '2025-10-10' },
+    { id: 14, name: 'Shalini Verma', service: 'Gardening Services', rating: 4.7, text: 'GreenLeaf turned my Alaknanda balcony into a lush oasis! Their plant choices and care tips were spot-on.', location: 'Alaknanda, Delhi', date: '2025-09-25' },
+    { id: 15, name: 'Rahul Mehra', service: 'Carpet Cleaning', rating: 5, text: 'nice cleaning. Will use again!', location: 'Govindpuri, Delhi', date: '2025-08-15' },
+    { id: 16, name: 'Pooja Arora', service: 'Interior Designing', rating: 4.8, text: 'good design. Their vision and execution were amazing', location: 'ITO, Delhi', date: '2025-07-30' },
+    { id: 17, name: 'Sanjay Kapoor', service: 'Window Cleaning', rating: 4.6, text: 'They cleaned my apartment windows to perfection. Great service.', location: 'Bhogal, Delhi', date: '2025-09-12' },
+    { id: 18, name: 'Kavita Rana', service: 'Home Security Installation', rating: 5, text: 'Feel so much safer now with CCTV camera installed in my home. Amazing Team', location: 'Rohini, Delhi', date: '2025-10-08' },
+    { id: 19, name: 'Arjun Sethi', service: 'Furniture Polishing', rating: 4.7, text: 'The finish is stunning, and they were so professional!', location: 'Adarsh Nagar, Delhi', date: '2025-08-20' },
+    { id: 20, name: 'Ritu Jain', service: 'Yoga Training', rating: 5, text: 'The trainer was patient and tailored everything to my needs.', location: 'Model Town, Delhi', date: '2025-09-30' },
 ];
 
 
@@ -1027,3 +1036,4 @@ document.addEventListener('DOMContentLoaded', () => {
 function toggleMobileMenu() {
     document.getElementById('mobile-menu').classList.toggle('hidden');
 }
+
