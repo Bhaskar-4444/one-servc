@@ -1,213 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="OneServiice - Book trusted home and personal services across India, from plumbing to therapy, with vetted professionals.">
- <meta name="keywords" content="home services, professional services, India, plumbing, cleaning, pest control, carpentry, salon, AC repair, painting">
- <meta name="author" content="OneServiice Team">
- <meta name="robots" content="index, follow">
- <title>OneServiice - Professional Service Marketplace (India)</title>
- <script src="https://cdn.tailwindcss.com"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
- <style>
- @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
- body {
- font-family: 'Inter', sans-serif;
- background-color: #f7f9fb; /* Light background */
- }
- /* Custom scrollbar for better appearance */
- ::-webkit-scrollbar {
- width: 8px;
- }
- ::-webkit-scrollbar-thumb {
- background: #cbd5e1;
- border-radius: 10px;
- }
- ::-webkit-scrollbar-thumb:hover {
- background: #94a3b8;
- }
- /* Professional enhancements: Subtle gradients and improved shadows */
- .professional-card {
-   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
- }
- .professional-card:hover {
-   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
- }
- .gradient-bg {
-   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
- }
- /* New: Hero section background image similar to provided (cozy room with plants and chair) */
- .hero-bg {
-   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
-   background-size: cover;
-   background-position: center;
-   background-repeat: no-repeat;
- }
- /* New: Search bar overlay with subtle background for inputs */
- .search-overlay {
-   background: rgba(255, 255, 255, 0.95);
-   backdrop-filter: blur(10px);
- }
- .fade-in {
-   animation: fadeIn 0.6s ease-out;
- }
- @keyframes fadeIn {
-   from { opacity: 0; transform: translateY(20px); }
-   to { opacity: 1; transform: translateY(0); }
- }
- </style>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-  import { getAuth, signInAnonymously, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-  import { getDatabase, ref, set, onValue, push, get } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
-
-  // Firebase Configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDbCpfja4Ly7kjNNNqy1L7i81CeAFtCDzU",
-    authDomain: "oneserviice-d0270.firebaseapp.com",
-    databaseURL: "https://oneserviice-d0270-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "oneserviice-d0270",
-    storageBucket: "oneserviice-d0270.firebasestorage.app",
-    messagingSenderId: "591308815657",
-    appId: "1:591308815657:web:aacb2188b2b94c92d24b38",
-    measurementId: "G-K3KKG8R8KN"
-  };
-
-  // Initialize Firebase
-  window.firebaseApp = initializeApp(firebaseConfig);
-  window.db = getFirestore(window.firebaseApp);
-  window.auth = getAuth(window.firebaseApp);
-  window.realtimeDb = getDatabase(window.firebaseApp); // Initialize Realtime Database
-
-  // Expose Firebase auth functions to the global window object
-  window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-  window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-  window.updateProfile = updateProfile;
-  window.signOut = signOut;
-  window.signInAnonymously = signInAnonymously;
-
-  // Auth State Listener
-  onAuthStateChanged(window.auth, (user) => {
-    if (user) {
-      appState.isLoggedIn = true;
-      appState.user = {
-        uid: user.uid,
-        name: user.displayName || user.email.split('@')[0],
-        email: user.email,
-        role: 'customer'
-      };
-      console.log("User signed in:", appState.user);
-      if (appState.currentPage === 'login' || appState.currentPage === 'signup') {
-        navigateTo('dashboard');
-      }
-    } else {
-      appState.isLoggedIn = false;
-      appState.user = null;
-      console.log("User signed out");
-      if (appState.currentPage === 'dashboard') {
-        navigateTo('home');
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OneServiice - Book trusted home and personal services across India, from plumbing to therapy, with vetted professionals.">
+  <meta name="keywords" content="home services, professional services, India, plumbing, cleaning, pest control, carpentry, salon, AC repair, painting">
+  <meta name="author" content="OneServiice Team">
+  <meta name="robots" content="index, follow">
+  <title>OneServiice - Professional Service Marketplace (India)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f9fb; /* Light background */
     }
-  });
-</script>
+    /* Custom scrollbar for better appearance */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    /* Professional enhancements: Subtle gradients and improved shadows */
+    .professional-card {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .professional-card:hover {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    }
+    /* New: Hero section background image similar to provided (cozy room with plants and chair) */
+    .hero-bg {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* New: Search bar overlay with subtle background for inputs */
+    .search-overlay {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <!-- Firebase CDN (compat mode for v12.4.0) -->
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-database-compat.js"></script>
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDbCpfja4Ly7kjNNNqy1L7i81CeAFtCDzU",
+      authDomain: "oneserviice-d0270.firebaseapp.com",
+      databaseURL: "https://oneserviice-d0270-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "oneserviice-d0270",
+      storageBucket: "oneserviice-d0270.firebasestorage.app",
+      messagingSenderId: "591308815657",
+      appId: "1:591308815657:web:aacb2188b2b94c92d24b38",
+      measurementId: "G-K3KKG8R8KN"
+    };
+
+    // Initialize Firebase
+    window.firebaseApp = firebase.initializeApp(firebaseConfig);
+    window.auth = firebase.auth();
+    window.realtimeDb = firebase.database();
+
+    // Expose Firebase auth functions to the global window object
+    window.signInWithEmailAndPassword = (email, password) => window.auth.signInWithEmailAndPassword(email, password);
+    window.createUserWithEmailAndPassword = (email, password) => window.auth.createUserWithEmailAndPassword(email, password);
+    window.updateProfile = (user, profile) => user.updateProfile(profile);
+    window.signOut = () => window.auth.signOut();
+    window.signInAnonymously = () => window.auth.signInAnonymously();
+
+    // Auth State Listener
+    window.auth.onAuthStateChanged((user) => {
+      if (user) {
+        appState.isLoggedIn = true;
+        appState.user = {
+          uid: user.uid,
+          name: user.displayName || user.email.split('@')[0],
+          email: user.email,
+          role: 'customer'
+        };
+        console.log("User signed in:", appState.user);
+        if (appState.currentPage === 'login' || appState.currentPage === 'signup') {
+          navigateTo('dashboard');
+        }
+      } else {
+        appState.isLoggedIn = false;
+        appState.user = null;
+        console.log("User signed out");
+        if (appState.currentPage === 'dashboard') {
+          navigateTo('home');
+        }
+      }
+    });
+  </script>
 </head>
 <body class="min-h-screen flex flex-col">
- <header class="bg-white shadow-lg sticky top-0 z-40">
- <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center" aria-label="Main navigation">
- <h1 class="text-3xl font-extrabold text-blue-600">OneServiice</h1>
- <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('home')" aria-label="Home page">Home</a>
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('listings')" aria-label="Services page">Services</a>
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('howitworks')" aria-label="How it works page">Service Flow</a>
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('testimonials')" aria-label="Customer reviews page">Reviews</a>
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="handleAuthClick()" aria-label="Your order page">Your Order</a>
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('about')" aria-label="About us page">About Us</a>
- <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('faq')" aria-label="Help and FAQ page">Help & FAQ</a>
- <button id="auth-button" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 font-semibold text-lg" onclick="handleAuthClick()" aria-label="User panel">User Panel</button>
- </div>
- <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100" aria-label="Toggle mobile menu" aria-expanded="false">
- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
- </button>
- </nav>
- <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100" role="menu">
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('home'); toggleMobileMenu()" role="menuitem">Home</a>
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('listings'); toggleMobileMenu()" role="menuitem">Services</a>
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('howitworks'); toggleMobileMenu()" role="menuitem">Service Flow</a>
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('testimonials'); toggleMobileMenu()" role="menuitem">Reviews</a>
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="handleAuthClick(); toggleMobileMenu()" role="menuitem">Your Order</a>
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('about'); toggleMobileMenu()" role="menuitem">About Us</a>
- <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('faq'); toggleMobileMenu()" role="menuitem">Help & FAQ</a>
- <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="toggleMobileMenu(); handleAuthClick()" role="menuitem">User Panel</button>
- </div>
- </header>
- <main id="app-container" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"></main>
- <footer class="bg-gray-900 text-white mt-12">
- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
- <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
- <div class="md:col-span-2">
- <h3 class="text-2xl font-bold mb-4 text-blue-400">OneServiice</h3>
- <p class="text-gray-300 mb-4 leading-relaxed">Connecting you with the best local professionals across India. From plumbing to therapy, we make home services simple, reliable, and affordable.</p>
- <div class="flex space-x-4">
- <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-facebook-f text-xl"></i></a>
- <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-twitter text-xl"></i></a>
- <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-instagram text-xl"></i></a>
- <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-linkedin-in text-xl"></i></a>
- </div>
- </div>
- <div>
- <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
- <ul class="space-y-2 text-sm">
- <li><a href="#" onclick="navigateTo('home')" class="text-gray-300 hover:text-blue-400 transition duration-150">Home</a></li>
- <li><a href="#" onclick="navigateTo('listings')" class="text-gray-300 hover:text-blue-400 transition duration-150">Services</a></li>
- <li><a href="#" onclick="navigateTo('howitworks')" class="text-gray-300 hover:text-blue-400 transition duration-150">Service Flow</a></li>
- <li><a href="#" onclick="navigateTo('about')" class="text-gray-300 hover:text-blue-400 transition duration-150">About Us</a></li>
- </ul>
- </div>
- <div>
- <h4 class="text-lg font-semibold mb-4">Support</h4>
- <ul class="space-y-2 text-sm">
- <li><a href="#" onclick="navigateTo('faq')" class="text-gray-300 hover:text-blue-400 transition duration-150">Help & FAQ</a></li>
- <li><a href="#" onclick="navigateTo('contact')" class="text-gray-300 hover:text-blue-400 transition duration-150">Contact Us</a></li>
- <li><a href="#" class="text-gray-300 hover:text-blue-400 transition duration-150">Privacy Policy</a></li>
- <li><a href="#" class="text-gray-300 hover:text-blue-400 transition duration-150">Terms of Service</a></li>
- </ul>
- </div>
- </div>
- <div class="border-t border-gray-700 pt-8 mb-8">
- <h4 class="text-lg font-semibold mb-4">Get in Touch</h4>
- <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
- <div>
- <p class="text-gray-300 mb-2"><i class="fas fa-phone mr-2"></i> +91-8882648433</p>
- <p class="text-gray-300"><i class="fas fa-envelope mr-2"></i> team.oneserviice@gmail.com.in</p>
- </div>
- <div>
- <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt mr-2"></i> NCR, Delhi</p>
- <p class="text-gray-300">Serving 5+ cities across India</p>
- </div>
- <div>
- <p class="text-gray-300 mb-2">Mon-Sun: 9AM - 9PM IST</p>
- <p class="text-gray-300">24/7 Emergency Support</p>
- </div>
- </div>
- </div>
- <div class="text-center border-t border-gray-700 pt-6">
- <p>&copy; 2025 OneServiice. All rights reserved.</p>
- <p class="text-sm text-gray-400 mt-2">Designed with love for Indian homes | GSTIN: 27AAFCU1234Q1Z5</p>
- </div>
- </div>
- </footer>
- <div id="modal-container" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
- <div id="modal-content" class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full">
- <h3 id="modal-title" class="text-xl font-semibold mb-3 text-gray-900"></h3>
- <p id="modal-body" class="text-gray-600 mb-6"></p>
- <div class="flex justify-end space-x-3">
- <button id="modal-cancel" class="px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition duration-150 hidden">Cancel</button>
- <button id="modal-confirm" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-150">OK</button>
- </div>
- </div>
- </div>
+  <header class="bg-white shadow-lg sticky top-0 z-40">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center" aria-label="Main navigation">
+      <h1 class="text-3xl font-extrabold text-blue-600">OneServiice</h1>
+      <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('home')" aria-label="Home page">Home</a>
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('listings')" aria-label="Services page">Services</a>
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('howitworks')" aria-label="How it works page">Service Flow</a>
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('testimonials')" aria-label="Customer reviews page">Reviews</a>
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="handleAuthClick()" aria-label="Your order page">Your Order</a>
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('about')" aria-label="About us page">About Us</a>
+        <a href="#" class="hover:text-blue-600 transition duration-150 text-lg" onclick="navigateTo('faq')" aria-label="Help and FAQ page">Help & FAQ</a>
+        <button id="auth-button" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-150 font-semibold text-lg" onclick="handleAuthClick()" aria-label="User panel">User Panel</button>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100" aria-label="Toggle mobile menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100" role="menu">
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('home'); toggleMobileMenu()" role="menuitem">Home</a>
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('listings'); toggleMobileMenu()" role="menuitem">Services</a>
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('howitworks'); toggleMobileMenu()" role="menuitem">Service Flow</a>
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('testimonials'); toggleMobileMenu()" role="menuitem">Reviews</a>
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="handleAuthClick(); toggleMobileMenu()" role="menuitem">Your Order</a>
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('about'); toggleMobileMenu()" role="menuitem">About Us</a>
+      <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="navigateTo('faq'); toggleMobileMenu()" role="menuitem">Help & FAQ</a>
+      <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 text-lg" onclick="toggleMobileMenu(); handleAuthClick()" role="menuitem">User Panel</button>
+    </div>
+  </header>
+  <main id="app-container" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"></main>
+  <footer class="bg-gray-900 text-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div class="md:col-span-2">
+          <h3 class="text-2xl font-bold mb-4 text-blue-400">OneServiice</h3>
+          <p class="text-gray-300 mb-4 leading-relaxed">Connecting you with the best local professionals across India. From plumbing to therapy, we make home services simple, reliable, and affordable.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-150"><i class="fab fa-linkedin-in text-xl"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" onclick="navigateTo('home')" class="text-gray-300 hover:text-blue-400 transition duration-150">Home</a></li>
+            <li><a href="#" onclick="navigateTo('listings')" class="text-gray-300 hover:text-blue-400 transition duration-150">Services</a></li>
+            <li><a href="#" onclick="navigateTo('howitworks')" class="text-gray-300 hover:text-blue-400 transition duration-150">Service Flow</a></li>
+            <li><a href="#" onclick="navigateTo('about')" class="text-gray-300 hover:text-blue-400 transition duration-150">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Support</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" onclick="navigateTo('faq')" class="text-gray-300 hover:text-blue-400 transition duration-150">Help & FAQ</a></li>
+            <li><a href="#" onclick="navigateTo('contact')" class="text-gray-300 hover:text-blue-400 transition duration-150">Contact Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition duration-150">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition duration-150">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 pt-8 mb-8">
+        <h4 class="text-lg font-semibold mb-4">Get in Touch</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          <div>
+            <p class="text-gray-300 mb-2"><i class="fas fa-phone mr-2"></i> +91-8882648433</p>
+            <p class="text-gray-300"><i class="fas fa-envelope mr-2"></i> team.oneserviice@gmail.com.in</p>
+          </div>
+          <div>
+            <p class="text-gray-300 mb-2"><i class="fas fa-map-marker-alt mr-2"></i> NCR, Delhi</p>
+            <p class="text-gray-300">Serving 5+ cities across India</p>
+          </div>
+          <div>
+            <p class="text-gray-300 mb-2">Mon-Sun: 9AM - 9PM IST</p>
+            <p class="text-gray-300">24/7 Emergency Support</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center border-t border-gray-700 pt-6">
+        <p>&copy; 2025 OneServiice. All rights reserved.</p>
+        <p class="text-sm text-gray-400 mt-2">Designed with love for Indian homes | GSTIN: 27AAFCU1234Q1Z5</p>
+      </div>
+    </div>
+  </footer>
+  <div id="modal-container" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div id="modal-content" class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full">
+      <h3 id="modal-title" class="text-xl font-semibold mb-3 text-gray-900"></h3>
+      <p id="modal-body" class="text-gray-600 mb-6"></p>
+      <div class="flex justify-end space-x-3">
+        <button id="modal-cancel" class="px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition duration-150 hidden">Cancel</button>
+        <button id="modal-confirm" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-150">OK</button>
+      </div>
+    </div>
+  </div>
 <script>
 // --- Mock Data for Fallback ---
 const mockCategories = [
@@ -261,7 +259,7 @@ async function initializeDatabase() {
     const db = window.realtimeDb;
 
     // Check if categories already exist to avoid re-initialization
-    const categorySnapshot = await get(ref(db, 'categories'));
+    const categorySnapshot = await db.ref('categories').once('value');
     if (categorySnapshot.exists()) {
       console.log('Database already initialized');
       return;
@@ -269,17 +267,17 @@ async function initializeDatabase() {
 
     // Initialize Categories
     await Promise.all(mockCategories.map(category => 
-      set(ref(db, `categories/${category.id}`), category)
+      db.ref(`categories/${category.id}`).set(category)
     ));
 
     // Initialize Providers
     await Promise.all(mockProviders.map(provider => 
-      set(ref(db, `providers/${provider.id}`), provider)
+      db.ref(`providers/${provider.id}`).set(provider)
     ));
 
     // Initialize Testimonials
     await Promise.all(mockTestimonials.map(testimonial => 
-      set(ref(db, `testimonials/${testimonial.id}`), testimonial)
+      db.ref(`testimonials/${testimonial.id}`).set(testimonial)
     ));
 
     console.log('Database initialized successfully');
@@ -293,7 +291,7 @@ async function initializeDatabase() {
 async function fetchCategories() {
   try {
     const db = window.realtimeDb;
-    const snapshot = await get(ref(db, 'categories'));
+    const snapshot = await db.ref('categories').once('value');
     const data = snapshot.val();
     if (data && Object.keys(data).length > 0) {
       return Object.values(data);
@@ -310,7 +308,7 @@ async function fetchCategories() {
 async function fetchProviders(categoryId = null) {
   try {
     const db = window.realtimeDb;
-    const snapshot = await get(ref(db, 'providers'));
+    const snapshot = await db.ref('providers').once('value');
     let providers = snapshot.val() ? Object.values(snapshot.val()) : mockProviders;
     if (categoryId) {
       providers = providers.filter(p => p.categoryId === categoryId);
@@ -330,7 +328,7 @@ async function fetchProviders(categoryId = null) {
 async function fetchBookings(userId) {
   try {
     const db = window.realtimeDb;
-    const snapshot = await get(ref(db, `bookings/${userId}`));
+    const snapshot = await db.ref(`bookings/${userId}`).once('value');
     const data = snapshot.val();
     return data ? Object.values(data) : [];
   } catch (error) {
@@ -343,7 +341,7 @@ async function fetchBookings(userId) {
 async function fetchTestimonials(limit = null) {
   try {
     const db = window.realtimeDb;
-    const snapshot = await get(ref(db, 'testimonials'));
+    const snapshot = await db.ref('testimonials').once('value');
     let testimonials = snapshot.val() ? Object.values(snapshot.val()) : mockTestimonials;
     if (limit) {
       testimonials = testimonials.sort(() => 0.5 - Math.random()).slice(0, limit);
@@ -362,18 +360,20 @@ async function fetchTestimonials(limit = null) {
 // Updated saveBooking - No silent fails
 async function saveBooking(booking) {
   if (!appState.user || !appState.user.uid) {
+    showModal('Authentication Error', 'You must be logged in to save a booking.', () => navigateTo('login'));
     throw new Error('Not authenticated - cannot save booking');
   }
   try {
     const db = window.realtimeDb;
     const userId = appState.user.uid;
     console.log('Saving booking for UID:', userId, 'Data:', booking); // Debug log
-    const bookingRef = ref(db, `bookings/${userId}/${booking.id}`);
-    await set(bookingRef, booking);
+    const bookingRef = db.ref(`bookings/${userId}/${booking.id}`);
+    await bookingRef.set(booking);
     console.log('Booking saved successfully to Firebase!');
     return true;
   } catch (error) {
-    console.error('Error saving booking:', error);
+    console.error('Error saving booking:', error, error.code, error.message);
+    showModal('Booking Error', `Failed to save booking: ${error.message}`, () => navigateTo('home'));
     throw new Error(`Failed to save booking: ${error.message}`);
   }
 }
@@ -468,8 +468,9 @@ window.signInUser = async () => {
   const password = document.getElementById('login-password').value;
   if (!email || !password) return showModal('Input Required', 'Please enter email and password.');
   try {
-    await window.signInWithEmailAndPassword(window.auth, email, password);
+    await window.signInWithEmailAndPassword(email, password);
   } catch (error) {
+    console.error('Sign-in error:', error, error.code, error.message);
     showModal('Login Failed', error.message);
   }
 };
@@ -482,9 +483,10 @@ window.signUpUser = async () => {
   if (!name || !email || !password || !confirmPassword) return showModal('Input Required', 'Please fill all fields.');
   if (password !== confirmPassword) return showModal('Error', 'Passwords do not match.');
   try {
-    const userCredential = await window.createUserWithEmailAndPassword(window.auth, email, password);
+    const userCredential = await window.createUserWithEmailAndPassword(email, password);
     await window.updateProfile(userCredential.user, { displayName: name });
   } catch (error) {
+    console.error('Signup error:', error, error.code, error.message);
     showModal('Signup Failed', error.message);
   }
 };
@@ -492,17 +494,19 @@ window.signUpUser = async () => {
 // Updated anonymous sign-in - Force email for bookings
 window.signInAnonymouslyFunc = async () => {
   try {
-    await window.signInAnonymously(window.auth);
+    await window.signInAnonymously();
     showModal('Guest Mode', 'Guest mode enabled, but bookings require full login. Please sign up/in for persistence.', () => navigateTo('login'));
   } catch (error) {
+    console.error('Anonymous sign-in error:', error, error.code, error.message);
     showModal('Error', error.message);
   }
 };
 
 window.signOutUser = async () => {
   try {
-    await window.signOut(window.auth);
+    await window.signOut();
   } catch (error) {
+    console.error('Sign-out error:', error, error.code, error.message);
     showModal('Error', error.message);
   }
 };
@@ -873,8 +877,8 @@ function renderProviderProfile(provider) {
 }
 
 async function startBooking(providerId, serviceName) {
-  if (!appState.isLoggedIn) {
-    showModal('Login Required', 'Please sign in to book a service.', () => navigateTo('login'));
+  if (!appState.isLoggedIn || !appState.user || appState.user.isAnonymous) {
+    showModal('Login Required', 'Please sign in with an email account to book a service.', () => navigateTo('login'));
     return;
   }
   appState.currentBooking = {
@@ -964,8 +968,11 @@ async function renderBookingSystem() {
       break;
     case 4:
       try {
+        const db = window.realtimeDb;
+        const userId = appState.user.uid;
+        const newBookingId = db.ref(`bookings/${userId}`).push().key;
         const newBooking = {
-          id: Date.now(),
+          id: newBookingId,
           providerName: provider.name,
           serviceName: appState.currentBooking.serviceName,
           date: appState.currentBooking.date,
