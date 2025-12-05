@@ -1,5 +1,3 @@
-// script.js - FULLY COMPLETE WITH ALL YOUR PRODUCTS
-
 const products = [
   // TOMATO ONION POTATO
   {name: "ONION (REGULAR)", price: 20, unit: "KILOGRAM", category: "tomato-onion-potato", img: "onion"},
@@ -94,7 +92,6 @@ const products = [
   {name: "RED CABBAGE", price: 70, unit: "KILOGRAM", category: "imported-vegetables", img: "red cabbage"},
   {name: "LEEKS", price: 300, unit: "KILOGRAM", category: "imported-vegetables", img: "leek"},
   {name: "LETTUCE RED", price: 300, unit: "KILOGRAM", category: "imported-vegetables", img: "red lettuce"},
-  },
   {name: "CHINESE CABBAGE", price: 140, unit: "KILOGRAM", category: "imported-vegetables", img: "chinese cabbage"},
   {name: "LETTUCE ROMAIN", price: 230, unit: "KILOGRAM", category: "imported-vegetables", img: "romaine lettuce"},
   {name: "KAFFIR LIME LEAVES", price: 70, unit: "KILOGRAM", category: "imported-vegetables", img: "kaffir lime leaves"},
@@ -111,6 +108,8 @@ const products = [
 
 function renderProducts(filter = "", category = "") {
   const container = document.getElementById("productsContainer");
+  if(!container) return; // Guard clause
+  
   container.innerHTML = "";
 
   products
@@ -119,29 +118,27 @@ function renderProducts(filter = "", category = "") {
       const matchesCategory = category === "" || p.category === category;
       return matchesSearch && matchesCategory;
     })
-    .forEach(p => {
+    .forEach((p, index) => {
       const card = document.createElement("div");
-      card.className = "product-card";
-      card.dataset.category = p.category;
-      card.dataset.name = p.name;
-
+      // Applied Compact/Square classes
+      card.className = "product-card bg-white border rounded-md shadow-sm p-1 flex flex-col";
+      
       const unitText = p.unit === "NUMBER" ? "per pc" : p.unit.toLowerCase();
-      const displayUnit = unitText.includes("kilogram") ? "kg" : "pc";
+      // Shorten unit for display
+      const displayUnit = unitText.includes("kilogram") ? "1 KG" : unitText.includes("packs") ? "pack" : "pc";
+      
+      // Use exact index for unique IDs to avoid Name/ID mismatch errors
+      const uniqueId = `prod-${index}`;
 
       card.innerHTML = `
-        <img src="https://source.unsplash.com/400x400/?${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400?text=${encodeURIComponent(p.name)}'">
-        <div class="product-info">
-          <div>
-            <h3>${p.name}</h3>
-            <p class="unit">Unit: ${p.unit}</p>
-            <p class="price">₹${p.price}</p>
-          </div>
-          <div class="quantity-controls">
-            <button class="quantity-btn" onclick="updateQty('${p.name.replace(/[^a-zA-Z0-9]/g,'-').toLowerCase()}', -1)">-</button>
-            <input type="text" id="${p.name.replace(/[^a-zA-Z0-9]/g,'-').toLowerCase()}-qty" class="quantity-input" value="0" readonly>
-            <span class="text-xs text-gray-600">${displayUnit}</span>
-            <button class="quantity-btn" onclick="updateQty('${p.name.replace(/[^a-zA-Z0-9]/g,'-').toLowerCase()}', 1)">+</button>
-          </div>
+        <img src="https://source.unsplash.com/400x400/?${p.img}" alt="${p.name}" class="w-full aspect-square object-cover rounded-sm mb-1" onerror="this.src='https://via.placeholder.com/400?text=Veg'">
+        <h4 class="text-[10px] font-bold leading-tight truncate-2-lines h-6" title="${p.name}">${p.name}</h4>
+        <p class="text-[9px] text-gray-500">${displayUnit}</p>
+        <p class="text-xs font-bold text-green-600 mb-1">₹${p.price}</p>
+        <div class="flex items-center justify-center mt-auto">
+            <button class="quantity-btn" onclick="updateQty('${uniqueId}', -1)">-</button>
+            <input type="number" id="${uniqueId}-qty" class="quantity-input" value="0" min="0" readonly data-name="${p.name}">
+            <button class="quantity-btn" onclick="updateQty('${uniqueId}', 1)">+</button>
         </div>
       `;
       container.appendChild(card);
@@ -150,29 +147,48 @@ function renderProducts(filter = "", category = "") {
 
 function updateQty(id, change) {
   const input = document.getElementById(id + "-qty");
-  let val = parseInt(input.value) || 0;
-  val = Math.max(0, val + change);
-  input.value = val;
+  if(input) {
+      let val = parseInt(input.value) || 0;
+      val = Math.max(0, val + change);
+      input.value = val;
+  }
 }
 
 // Search & Filter
-document.getElementById("searchInput").addEventListener("input", e => {
-  renderProducts(e.target.value, document.getElementById("categoryFilter").value);
-});
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
 
-document.getElementById("categoryFilter").addEventListener("change", e => {
-  renderProducts(document.getElementById("searchInput").value, e.target.value);
-});
+if(searchInput) {
+    searchInput.addEventListener("input", e => {
+      renderProducts(e.target.value, document.getElementById("categoryFilter").value);
+    });
+}
 
-// Add to Cart
+if(categoryFilter) {
+    document.getElementById("categoryFilter").addEventListener("change", e => {
+      renderProducts(document.getElementById("searchInput").value, e.target.value);
+    });
+}
+
+// Add to Cart Logic
 function addToCart() {
   const order = {};
+  
+  // Select only our quantity inputs
   document.querySelectorAll(".quantity-input").forEach(inp => {
-    if (parseInt(inp.value) > 0) {
-      const name = inp.id.replace(/-qty$/, '').replace(/-/g, ' ').toUpperCase();
-      const item = products.find(p => p.name === name);
+    const qty = parseInt(inp.value);
+    if (qty > 0) {
+      // Retrieve exact name from data attribute (safe from regex errors)
+      const exactName = inp.getAttribute('data-name'); 
+      const item = products.find(p => p.name === exactName);
+      
       if (item) {
-        order[inp.id] = { name: item.name, qty: parseInt(inp.value), price: item.price };
+        order[exactName] = { 
+            name: item.name, 
+            qty: qty, 
+            price: item.price,
+            img: item.img
+        };
       }
     }
   });
@@ -188,4 +204,6 @@ function addToCart() {
 }
 
 // Initial render
-renderProducts();
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+});
