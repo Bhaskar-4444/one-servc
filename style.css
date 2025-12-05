@@ -1,155 +1,88 @@
-/* Custom Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* style.css */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background: #f8fafc; }
 
-/* Define a custom color palette with CSS variables for consistency */
-:root {
-    --color-primary: #1A3E6D; /* A deep, professional blue-grey */
-    --color-secondary: #007bff; /* A standard blue for accents */
-    --color-accent: #28a745;   /* Green for success/highlights */
-    --color-text-dark: #343a40;
-    --color-text-light: #6c757d;
-    --color-bg-light: #f8f9fa;
-    --color-bg-medium: #e9ecef;
-    --color-border: #dee2e6;
-    --color-hover-card: #e0e6ed; /* Lighter blue-grey for card hover */
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--color-bg-light); /* Light background */
-    color: var(--color-text-dark);
+.product-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-/* Custom scrollbar for better appearance */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--color-bg-medium);
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-light);
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
-/* Auth Container Style */
-.auth-container {
-    max-width: 450px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--color-border);
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
 }
 
-/* Header & Nav Adjustments */
-header h1 {
-    color: var(--color-primary) !important; 
+.product-info {
+  padding: 14px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* Hero Section Styling */
-.hero-banner {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #2c5282 100%); 
-    color: white;
-    padding: 6rem 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+.product-info h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  height: 2.6em;
+  overflow: hidden;
 }
 
-.hero-banner h2 {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    font-weight: 800;
-    margin-bottom: 1rem;
+.unit {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 8px;
 }
 
-.hero-banner p {
-    font-size: 1.5rem;
-    opacity: 0.9;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
+.price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #16a34a;
+  margin-bottom: 12px;
 }
 
-.hero-search-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1rem;
-    border-radius: 0.75rem;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-@media (min-width: 640px) {
-    .hero-search-inputs {
-        flex-direction: row;
-        padding: 0.5rem;
-    }
+.quantity-btn {
+  background: linear-gradient(135deg, #f97316, #16a34a);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.hero-search-inputs input {
-    background: white;
-    color: var(--color-text-dark);
-    padding: 1rem 1.25rem;
-    border-radius: 0.5rem;
-    border: none;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
-    transition: all 0.2s ease-in-out;
+.quantity-input {
+  width: 60px;
+  text-align: center;
+  padding: 8px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
-.hero-search-inputs input::placeholder {
-    color: var(--color-text-light);
-}
-
-.hero-search-inputs input:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Using var(--color-secondary) equivalent */
-}
-
-
-/* Category Card Hover Effect */
-.category-card-hover {
-    transition: all 0.3s ease-in-out;
-    background: white;
-    border: 1px solid var(--color-border); 
-}
-.category-card-hover:hover {
-    background: var(--color-hover-card);
-    color: var(--color-primary);
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    border-color: var(--color-primary);
-}
-.category-card-hover p {
-     color: var(--color-text-dark);
-     transition: color 0.3s ease-in-out;
-}
-.category-card-hover:hover p {
-     color: var(--color-primary);
-}
-.category-card-hover svg {
-     fill: var(--color-secondary);
-     transition: fill 0.3s ease-in-out;
-}
-.category-card-hover:hover svg {
-     fill: var(--color-primary);
-}
-
-/* Buttons */
-.bg-blue-600 {
-    background-color: var(--color-secondary);
-}
-.hover\:bg-blue-700:hover {
-    background-color: var(--color-primary);
-}
-.bg-green-600 {
-    background-color: var(--color-accent);
-}
-
-/* Footer specific colors */
-footer {
-    background-color: var(--color-primary);
-}
+.hidden { display: none !important; }
